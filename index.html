@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Grid Paths</title>
+	<meta name="author" content="ajs">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link rel="stylesheet" href="stylesheets/custom.css">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Scripts
+	================================================== -->
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="subwayblocks.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="sixteen columns">
+			<h1 class="remove-bottom" style="margin-top: 40px">How many ways can you walk a grid?</h1>
+			<hr />
+		</div>
+		<div class="one-third column">
+			<center>
+			<table class="swtable">
+				<tr><td>Blocks over:</td><td><input type="number" id="numUp" class="swbinpt"></td></tr>
+				<tr><td>Blocks up:</td><td><input type="number" id="numOver" class="swbinpt"></td></tr>
+			</table>
+			<br />
+			<input type="button" id="showPaths" onClick="calcPaths();" value="Submit" class="swbbtn">
+			<br />
+			<br />
+			<span id="solnText"></span>
+			</center>
+			<br />
+		</div>
+		<div class="two-thirds column">
+			<p>I live three blocks north and four blocks east of the subway stop. I like to walk home a different way every day, just to keep things interesting. One day I wondered <i>how many different paths can I take between the subway and my apartment?</i> I soon realized that counting in my head was too difficult. So instead of drawing it out, I decided to write a program to do it. That way, I could change the parameters (blocks north/east) and see how it would change.</p>
+			<p>So the app works like this: you enter the number of blocks you need to travel in two directions (i.e. north and east, south and west, etc.) and it will tell you the number of different paths you can take. This assumes a grid structure of roads and that all intersections are 2 way intersections (no T's). Also, it will not take you out of the way (you will never go three blocks over then one back if you need to go two blocks over). Enjoy!</p>
+		</div>		
+	</div><!-- container -->
+</body>
+</html>
