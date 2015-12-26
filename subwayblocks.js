@@ -19,12 +19,14 @@
 function calcPaths() {
   var up = $('#numUp').val();
   var over = $('#numOver').val();
-  if (validateInpt(up) && validateInpt(over)) {	// it would be better if I alerted which input was causing the error...I'll do that later
-    if (inputIsLowEnough(up, over)) { // do work
-      totals = move(1, 1, over, up, 0);
-      str = "There are " + totals + " different paths through a " + up + " by " + over + " grid.";
-      $('#solnText').html(str);
-    }
+  if (!(validateInpt(up) && validateInpt(over))) {
+		// it would be better if I alerted which input was causing the error...I'll do that later
+		return;
+	}
+  if (inputIsLowEnough(up, over)) {
+    totals = move(1, 1, over, up, 0);
+    str = "There are " + totals + " different paths through a " + up + " by " + over + " grid.";
+    $('#solnText').html(str);
   }
 }
 
@@ -72,7 +74,7 @@ function inputIsLowEnough(x, y) {
 
 
 /* ******************************
-	functions for recursive formula
+	worker function
 	****************************** */
 function move(x, y, maxX, maxY, count) {
   if ((x == maxX) && (y == maxY)) {	// found a path to the end
