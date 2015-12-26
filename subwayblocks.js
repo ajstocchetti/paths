@@ -15,6 +15,7 @@
 								90 degrees - the solution stays the same
 		f(n, 2) = f(2, n) = n
 */
+'use strict'
 
 function calcPaths() {
   var up = $('#numUp').val();
@@ -24,8 +25,8 @@ function calcPaths() {
 		return;
 	}
   if (inputIsLowEnough(up, over)) {
-    totals = move(1, 1, over, up, 0);
-    str = "There are " + totals + " different paths through a " + up + " by " + over + " grid.";
+    var totals = move(1, 1, over, up, 0);
+    var str = "There are " + totals + " different paths through a " + up + " by " + over + " grid.";
     $('#solnText').html(str);
   }
 }
@@ -76,16 +77,20 @@ function inputIsLowEnough(x, y) {
 /* ******************************
 	worker function
 	****************************** */
-function move(x, y, maxX, maxY, count) {
+function move(x, y, maxX, maxY, count, memory) {
   if ((x == maxX) && (y == maxY)) {	// found a path to the end
-    count++;
+    return 1;
   } else {	// still not at destination
+		memory = memory || [];
+		let count = 0;
     if (x < maxX) {	// move "over"
-      count = move(x + 1, y, maxX, maxY, count);
+			memory[x+1, y] = move(x + 1, y, maxX, maxY, 0, memory);
+      count += memory[x+1, y];
     }
     if (y < maxY) {	// move "up"
-      count = move(x, y + 1, maxX, maxY, count);
+			memory[x, y+1] = move(x, y + 1, maxX, maxY, 0, memory);
+      count += memory[x, y+1]
     }
+		return count;
   }
-  return count;
 }
