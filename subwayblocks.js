@@ -25,8 +25,13 @@ function calcPaths() {
 		return;
 	}
   if (inputIsLowEnough(up, over)) {
-    var totals = move(1, 1, over, up, 0);
-    var str = "There are " + totals + " different paths through a " + up + " by " + over + " grid.";
+    let str = "Inputs are too large for your browswer! Try again with a smaller grid size."
+    try {
+      var totals = move(1, 1, over, up, 0);
+      str = "There are " + totals + " different paths through a " + up + " by " + over + " grid.";
+    } catch(err) {
+      console.log(err);
+    }
     $('#solnText').html(str);
   }
 }
@@ -78,7 +83,7 @@ function inputIsLowEnough(x, y) {
 /* ******************************
 	worker function
 	****************************** */
-function move(x, y, maxX, maxY, count, memory) {
+function move(x, y, maxX, maxY, memory) {
   if ((x == maxX) && (y == maxY)) {	// found a path to the end
     return 1;
   } else {	// still not at destination
@@ -86,14 +91,14 @@ function move(x, y, maxX, maxY, count, memory) {
 		let count = 0;
     if (x < maxX) {	// move "over"
 			if(!memory[x+1, y])
-				memory[x+1, y] = move(x+1, y, maxX, maxY, 0, memory);
+				memory[x+1, y] = move(x+1, y, maxX, maxY, memory);
       count += memory[x+1, y];
     }
     if (y < maxY) {	// move "up"
 			memory[x] = memory[x] || [];
       memory[x, y+1] = memory[x, y+1] || [];
       if(!memory[x, y+1].length)
-				memory[x, y+1] = move(x, y+1, maxX, maxY, 0, memory);
+				memory[x, y+1] = move(x, y+1, maxX, maxY, memory);
       count += memory[x, y+1]
     }
 		return count;
