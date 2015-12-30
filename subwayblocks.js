@@ -62,10 +62,11 @@ function validateInpt(inpt) {
 // else the client may hang for a while
 // and we don't want a bad user experience
 function inputIsLowEnough(x, y) {
+  return true;
   if (Math.pow(x * y, 2) < 30000)
     return true;
   else {
-    str = "This uses a brute-force recursive algorithm. As such, it does not perform well with high numbers. To prevent your page from hanging a maximum limit has been imposed, and " + x + " and " + y + " have exceeded that limit. Enter lower numbers and try again.";
+    var str = "This uses a brute-force recursive algorithm. As such, it does not perform well with high numbers. To prevent your page from hanging a maximum limit has been imposed, and " + x + " and " + y + " have exceeded that limit. Enter lower numbers and try again.";
     $('#solnText').html(str);
     alert("Inputs are too high");
     // it would be nice to explain what the input limit is...
@@ -84,11 +85,15 @@ function move(x, y, maxX, maxY, count, memory) {
 		memory = memory || [];
 		let count = 0;
     if (x < maxX) {	// move "over"
-			memory[x+1, y] = move(x + 1, y, maxX, maxY, 0, memory);
+			if(!memory[x+1, y])
+				memory[x+1, y] = move(x+1, y, maxX, maxY, 0, memory);
       count += memory[x+1, y];
     }
     if (y < maxY) {	// move "up"
-			memory[x, y+1] = move(x, y + 1, maxX, maxY, 0, memory);
+			memory[x] = memory[x] || [];
+      memory[x, y+1] = memory[x, y+1] || [];
+      if(!memory[x, y+1].length)
+				memory[x, y+1] = move(x, y+1, maxX, maxY, 0, memory);
       count += memory[x, y+1]
     }
 		return count;
